@@ -8,9 +8,9 @@ export function Home() {
     const [result, setResult] = useState(0);
     const [numberConcat, setNumberConcat] = useState(''); // esse state vai "acumular" os numeros digitados
     const [numbers, setNumbers] = useState([]);
-    const [operation, setOperation] = useState('')  
- 
-    
+    const [operation, setOperation] = useState('')
+
+
     // 1 + 2 + 5 * 2
     function addNumber(number) { // 1, 2, 5, 2
         console.log('Number', number)
@@ -19,41 +19,41 @@ export function Home() {
         if (operation !== '') {
             logica(operation) // 3
         }
-    } 
+    }
 
-    function logica(op) { 
+    function logica(op) {
         let i = 0;
-        if (numbers.length > 1) { 
+        if (numbers.length > 1) {
             const numPrev = numbers[i] // 1
             const numNext = numbers[i + 1] // 2
             setNumbers([resultado(op, numPrev, numNext)]) // 3
             setNumberConcat('')
         }
-    }  
+    }
 
     function addOperation(op) { // +
         console.log('Operation', op)
         setOperation(op) // +
-        if (numberConcat !== ''){
+        if (numberConcat !== '') {
             numbers.push(parseFloat(numberConcat)) // [8]
         }
-        setNumbers(numbers) 
+        setNumbers(numbers)
         logica(op)
         setNumberConcat('')
     }
 
     function checkOperation() { // =
-        if (numberConcat !== '') { 
+        if (numberConcat !== '') {
             numbers.push(parseFloat(numberConcat))
-            setNumbers(numbers) 
+            setNumbers(numbers)
             logica(operation)
             setNumberConcat('')
-        } 
+        }
     }
 
     function resultado(operation, numPrev, numNext) {
         if (numPrev !== undefined && numNext !== undefined) {
-            console.log("[" + numPrev + ", "+numNext +']' ) 
+            console.log("[" + numPrev + ", " + numNext + ']')
             switch (operation) {
                 case '+':
                     return soma(numPrev, numNext);
@@ -62,13 +62,17 @@ export function Home() {
                 case '*':
                     return multiplicacao(numPrev, numNext)
                 case '/':
-                    return dividir(numPrev, numNext);     
+                    return dividir(numPrev, numNext);
+                case '%':
+                    return porcentagem(numPrev, numNext);
+                case '>':
+                    return maior(numPrev, numNext);
             }
         }
         return 0
     }
 
-    
+
 
     function soma(numPrev, numNext) {
         const sum = numPrev + numNext;
@@ -90,10 +94,20 @@ export function Home() {
         setResult(sum)
         return sum
     }
+    function porcentagem(numPrev, numNext) {
+        const sum = (numPrev / 100) * numNext;
+        setResult(sum)
+        return sum
+    }
+    function maior(numPrev, numNext) {
+        const sum = Math.max(numPrev , numNext);
+        setResult(sum)
+        return sum
+    }
     function limpar() {
         setResult(0)
         setNumbers([]) // reseta os numeros inseridos 
-        setOperation('') 
+        setOperation('')
 
     }
 
@@ -130,7 +144,7 @@ export function Home() {
                         <Text style={styles.ButtonTextNumber}>2</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.cent3} onPress={() => addNumber('00')}>
-                        <Text style={styles.ButtonTextNumber}>00</Text>
+                        <Text style={styles.ButtonTextNumber}>{'00'}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.numberContainer3}>
@@ -148,18 +162,18 @@ export function Home() {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.numberContainer4}>
-                    <TouchableOpacity style={styles.cent5}>
+                    <TouchableOpacity style={styles.cent5} onPress={() => addOperation('%')}>
                         <Text style={styles.ButtonTextNumber}>%</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.cent5}>
-                        <Text style={styles.ButtonTextNumber} onPress={() => addOperation('*')}>x</Text>
+                    <TouchableOpacity style={styles.cent5} onPress={() => addOperation('*')}>
+                        <Text style={styles.ButtonTextNumber} >x</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.cent7} onPress={() => addOperation('+')}>
-                        <Text style={styles.ButtonTextNumberMais}>+</Text>
+                        <Text style={styles.ButtonTextNumberMais}> +</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.numberContainer5}>
-                    <TouchableOpacity style={styles.cent6}>
+                    <TouchableOpacity style={styles.cent6}onPress={() => addOperation('>')}>
                         <Text style={styles.ButtonTextNumber}> {'>'} </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.cent6} onPress={() => addOperation('/')}>

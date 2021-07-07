@@ -19,7 +19,7 @@ export function Home() {
         setNumbers([]) // reseta os numeros inseridos
        
     }
-    console.log(result)
+    console.log(resultado)
     function soma() {
         let sum = 0;
         for (let i = 0; i < numbers.length; i++){
@@ -49,7 +49,7 @@ export function Home() {
         return mult;
     }
     function limpar(){
-
+        
     }
 
     return (
@@ -58,47 +58,47 @@ export function Home() {
             <View style={styles.resultContainer} >
                 <Text style={styles.resultText} >0</Text>
             </View>
-            <TouchableOpacity style={styles.ButtonContainer}onPress={(limpar)}>
+            <TouchableOpacity style={styles.ButtonContainer}onPress={() => limpar()}>
                 <Text style={styles.ButtonText}>CE/C</Text>
             </TouchableOpacity>
             <View style={styles.numberContainer}>
-                <TouchableOpacity style={styles.cent2} onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent2} onPress={() => addNumber(7)}>
                     <Text style={styles.ButtonTextNumber} >7</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent2} onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent2} onPress={() => addNumber(4)}>
                     <Text style={styles.ButtonTextNumber}>4</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent2} onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent2} onPress={() => addNumber(1)}>
                     <Text style={styles.ButtonTextNumber}>1</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent2} onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent2} onPress={() => addNumber(0)}>
                     <Text style={styles.ButtonTextNumber}>0</Text>
                 </TouchableOpacity>
              <View style={styles.numberContainer2}>
-                <TouchableOpacity style={styles.cent3}onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent3}onPress={() => addNumber(8)}>
                     <Text style={styles.ButtonTextNumber}>8</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent3}onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent3}onPress={() => addNumber(5)}>
                     <Text style={styles.ButtonTextNumber}>5</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent3}onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent3}onPress={() => addNumber(2)}>
                     <Text style={styles.ButtonTextNumber}>2</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent3}onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent3}onPress={() => addNumber('00')}>
                     <Text style={styles.ButtonTextNumber}>00</Text>
                 </TouchableOpacity>
              </View> 
              <View style={styles.numberContainer3}>
-                <TouchableOpacity style={styles.cent4}onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent4}onPress={() => addNumber(9)}>
                     <Text style={styles.ButtonTextNumber}>9</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent4}onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent4}onPress={() => addNumber(6)}>
                     <Text style={styles.ButtonTextNumber}>6</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent4}onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent4}onPress={() => addNumber(3)}>
                     <Text style={styles.ButtonTextNumber}>3</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent4}onPress={(addNumber)}>
+                <TouchableOpacity style={styles.cent4}onPress={() => addNumber('.')}>
                     <Text style={styles.ButtonTextNumber}>.</Text>
                 </TouchableOpacity>
              </View> 
@@ -107,9 +107,9 @@ export function Home() {
                     <Text style={styles.ButtonTextNumber}>%</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cent5}>
-                    <Text style={styles.ButtonTextNumber}onPress={(multiplicacao)}>x</Text>
+                    <Text style={styles.ButtonTextNumber}onPress={() => multiplicacao()}>x</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent7}onPress={(soma)}>
+                <TouchableOpacity style={styles.cent7}onPress={() => soma()}>
                     <Text style={styles.ButtonTextNumberMais}>+</Text>
                 </TouchableOpacity>
              </View> 
@@ -117,13 +117,13 @@ export function Home() {
                 <TouchableOpacity style={styles.cent6}>
                     <Text style={styles.ButtonTextNumber}> {'>'} </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent6}onPress={(dividir)}>
+                <TouchableOpacity style={styles.cent6}onPress={() => dividir()}>
                     <Text style={styles.ButtonTextNumber}>÷</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent6}onPress={(subtracao)}>
+                <TouchableOpacity style={styles.cent6}onPress={() => subtracao()}>
                     <Text style={styles.ButtonTextNumber}>-</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent6}onPress={(resultado)}>
+                <TouchableOpacity style={styles.cent6}onPress={() => resultado()}>
                     <Text style={styles.ButtonTextNumber}>=</Text>
                     
                 </TouchableOpacity>

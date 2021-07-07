@@ -1,61 +1,104 @@
 import React, { useDebugValue, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { MyInput } from '../components/MyInput';
-
-const [result,setResult] = useState('');
-const [number,setNumber] = useState('');
-
-
 
 
 export function Home() {
 
+    const [result,setResult] = useState('');
+    const [numbers,setNumbers] = useState([]);
+    
+
+
+    function addNumber (number) {
+        setNumbers(numbers => [...numbers, number])
+    }
+    
+    function resultado(soma) {
+        setResult(soma) // insere o valor da soma
+        setNumbers([]) // reseta os numeros inseridos
+       
+    }
+    console.log(result)
+    function soma() {
+        let sum = 0;
+        for (let i = 0; i < numbers.length; i++){
+            sum += parseInt(numbers[i])
+        }
+        return sum;
+    } 
+    function subtracao() {
+        let subtrair = 0;
+        for (let i = 0; i < numbers.length; i++){
+            subtrair -= parseInt(numbers[i])
+        }
+        return subtrair;
+    }
+    function dividir() {
+        let div = 0;
+        for (let i = 0; i < numbers.length; i++){
+            div /= parseInt(numbers[i])
+        }
+        return div;
+    }
+    function multiplicacao() {
+        let mult = 0;
+        for (let i = 0; i < numbers.length; i++){
+            mult *= parseInt(numbers[i])
+        }
+        return mult;
+    }
+    function limpar(){
+
+    }
+
     return (
+
         <View style={styles.container}>
-            <View style={styles.resultContainer}>
-                <Text style={styles.resultText} value={result} onChangeText={(e) => setResult(e)} >0</Text>
+            <View style={styles.resultContainer} >
+                <Text style={styles.resultText} >0</Text>
             </View>
-            <TouchableOpacity style={styles.ButtonContainer}>
+            <TouchableOpacity style={styles.ButtonContainer}onPress={(limpar)}>
                 <Text style={styles.ButtonText}>CE/C</Text>
             </TouchableOpacity>
             <View style={styles.numberContainer}>
-                <TouchableOpacity style={styles.cent2}>
+                <TouchableOpacity style={styles.cent2} onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber} >7</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent2}>
+                <TouchableOpacity style={styles.cent2} onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>4</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent2}>
+                <TouchableOpacity style={styles.cent2} onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>1</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent2}>
+                <TouchableOpacity style={styles.cent2} onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>0</Text>
                 </TouchableOpacity>
              <View style={styles.numberContainer2}>
-                <TouchableOpacity style={styles.cent3}>
+                <TouchableOpacity style={styles.cent3}onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>8</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent3}>
+                <TouchableOpacity style={styles.cent3}onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>5</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent3}>
+                <TouchableOpacity style={styles.cent3}onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>2</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent3}>
+                <TouchableOpacity style={styles.cent3}onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>00</Text>
                 </TouchableOpacity>
              </View> 
              <View style={styles.numberContainer3}>
-                <TouchableOpacity style={styles.cent4}>
+                <TouchableOpacity style={styles.cent4}onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>9</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent4}>
+                <TouchableOpacity style={styles.cent4}onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>6</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent4}>
+                <TouchableOpacity style={styles.cent4}onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>3</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent4}>
+                <TouchableOpacity style={styles.cent4}onPress={(addNumber)}>
                     <Text style={styles.ButtonTextNumber}>.</Text>
                 </TouchableOpacity>
              </View> 
@@ -64,29 +107,30 @@ export function Home() {
                     <Text style={styles.ButtonTextNumber}>%</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cent5}>
-                    <Text style={styles.ButtonTextNumber}>x</Text>
+                    <Text style={styles.ButtonTextNumber}onPress={(multiplicacao)}>x</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent7}>
+                <TouchableOpacity style={styles.cent7}onPress={(soma)}>
                     <Text style={styles.ButtonTextNumberMais}>+</Text>
                 </TouchableOpacity>
-                
              </View> 
              <View style={styles.numberContainer5}>
                 <TouchableOpacity style={styles.cent6}>
                     <Text style={styles.ButtonTextNumber}> {'>'} </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent6}>
+                <TouchableOpacity style={styles.cent6}onPress={(dividir)}>
                     <Text style={styles.ButtonTextNumber}>÷</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent6}>
+                <TouchableOpacity style={styles.cent6}onPress={(subtracao)}>
                     <Text style={styles.ButtonTextNumber}>-</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cent6}>
+                <TouchableOpacity style={styles.cent6}onPress={(resultado)}>
                     <Text style={styles.ButtonTextNumber}>=</Text>
+                    
                 </TouchableOpacity>
              </View> 
-            </View>
         </View>
+    </View>
+        
 
 
          

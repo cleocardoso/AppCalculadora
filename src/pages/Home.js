@@ -1,4 +1,4 @@
-import React, { useDebugValue, useState, useEffect } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
 
@@ -8,16 +8,26 @@ export function Home() {
     const [result, setResult] = useState(0);
     const [numberConcat, setNumberConcat] = useState(''); // esse state vai "acumular" os numeros digitados
     const [numbers, setNumbers] = useState([]);
-    const [operation, setOperation] = useState('')
+    const [operation, setOperation] = useState('');
+    const [parcial, setParcial] = useState('');//mostrar parcial
+    const [isEquals, setEquals] = useState(false) 
 
+    useEffect(()=>{
+        console.log('ISEQUALS', isEquals)
+    }, [isEquals])
+
+    useEffect(()=>{
+        console.log('parcial', parcial)
+    }, [parcial])
 
     // 1 + 2 + 5 * 2
-    function addNumber(number) { // 1, 2, 5, 2
+    function addNumber(number) { // 1, 2, 5, 2 
         console.log('Number', number)
         setNumberConcat(n => n + number)
         console.log('op', operation !== '')
+        setParcialF(number)
         if (operation !== '') {
-            logica(operation) // 3
+            logica(operation) // 3 
         }
     }
 
@@ -31,11 +41,17 @@ export function Home() {
         }
     }
 
+    function setParcialF(p){
+        let par = parcial + p
+        setParcial(par)
+    }
+
     function addOperation(op) { // +
         console.log('Operation', op)
         setOperation(op) // +
+        setParcialF(op)
         if (numberConcat !== '') {
-            numbers.push(parseFloat(numberConcat)) // [8]
+            numbers.push(parseFloat(numberConcat)) // [8] 
         }
         setNumbers(numbers)
         logica(op)
@@ -46,12 +62,14 @@ export function Home() {
         if (numberConcat !== '') {
             numbers.push(parseFloat(numberConcat))
             setNumbers(numbers)
-            logica(operation)
+            logica(operation) 
             setNumberConcat('')
         }
+        setEquals(true)
+        setParcial('')
     }
 
-    function resultado(operation, numPrev, numNext) {
+    function resultado(operation, numPrev, numNext) { // essa funcao que vai setar o resultado. 
         if (numPrev !== undefined && numNext !== undefined) {
             console.log("[" + numPrev + ", " + numNext + ']')
             switch (operation) {
@@ -77,45 +95,61 @@ export function Home() {
     function soma(numPrev, numNext) {
         const sum = numPrev + numNext;
         setResult(sum)
+        setNumberConcat('')
         return sum
     }
     function subtracao(numPrev, numNext) {
         const sum = numPrev - numNext;
         setResult(sum)
+        setNumberConcat('')
         return sum
     }
     function dividir(numPrev, numNext) {
         const sum = numPrev / numNext;
         setResult(sum)
+        setNumberConcat('')
         return sum
     }
     function multiplicacao(numPrev, numNext) {
         const sum = numPrev * numNext;
         setResult(sum)
+        setNumberConcat('')
         return sum
     }
     function porcentagem(numPrev, numNext) {
         const sum = (numPrev / 100) * numNext;
         setResult(sum)
+        setNumberConcat('')
         return sum
     }
+    
     function maior(numPrev, numNext) {
         const sum = Math.max(numPrev , numNext);
         setResult(sum)
+        setNumberConcat('')
         return sum
     }
     function limpar() {
         setResult(0)
         setNumbers([]) // reseta os numeros inseridos 
         setOperation('')
-
+        setNumberConcat('') 
+        setEquals(false)    
+        setParcial('')
     }
 
     return (
 
         <View style={styles.container}>
-            <View style={styles.resultContainer} >
-                <Text style={styles.resultText} >{result}</Text>
+            <View style={styles.resultContainer}>
+                <View style={styles.resultText} >
+                    {isEquals &&(
+                        <Text style={styles.resultText}>{result}</Text>
+                    )}
+                    {!isEquals &&(
+                        <Text style={styles.resultText}>{parcial}</Text>
+                    )}
+                </View>     
             </View>
             <TouchableOpacity style={styles.ButtonContainer} onPress={() => limpar()}>
                 <Text style={styles.ButtonText}>CE/C</Text>
@@ -184,17 +218,10 @@ export function Home() {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.cent6} onPress={() => checkOperation()}>
                         <Text style={styles.ButtonTextNumber}>=</Text>
-
                     </TouchableOpacity>
                 </View>
             </View>
         </View>
-
-
-
-
-
-
     );
 
 }
@@ -202,19 +229,16 @@ export function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#000000'
-
-
+        backgroundColor: '#000000',
     },
     resultContainer: {
         width: 340,
-        height: 80,
+        height: 100,
         marginTop: 30,
         left: 10,
         backgroundColor: '#FFFFFF',
         borderRadius: 10,
-
-
+        
     },
     resultText: {
         top: 1,
@@ -222,7 +246,8 @@ const styles = StyleSheet.create({
         fontSize: 35,
         fontWeight: 'bold',
         padding: 20,
-        textAlign: 'right'
+        textAlign: 'right',
+        marginTop:-10,
 
     },
     ButtonContainer: {
@@ -268,7 +293,7 @@ const styles = StyleSheet.create({
     cent3: {
         width: 60,
         height: 60,
-        top: -143,
+        top: -140,
         left: 70,
         margin: 10,
         marginTop: 5,
@@ -284,7 +309,7 @@ const styles = StyleSheet.create({
     cent4: {
         width: 60,
         height: 60,
-        top: -175,
+        top: -168,
         left: 140,
         margin: 10,
         marginTop: 5,
@@ -300,7 +325,7 @@ const styles = StyleSheet.create({
     cent5: {
         width: 60,
         height: 60,
-        top: -208,
+        top: -195,
         left: 210,
         margin: 10,
         marginTop: 5,
@@ -317,7 +342,7 @@ const styles = StyleSheet.create({
     cent6: {
         width: 60,
         height: 60,
-        top: -240,
+        top: -223,
         left: 280,
         margin: 10,
         marginTop: 5,
@@ -328,7 +353,7 @@ const styles = StyleSheet.create({
     cent7: {
         width: 60,
         height: 135,
-        top: -208,
+        top: -195,
         left: 210,
         margin: 10,
         marginTop: 5,
@@ -338,7 +363,7 @@ const styles = StyleSheet.create({
     },
     ButtonTextNumber: {
         color: 'white',
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: 'bold',
         padding: 20,
         textAlign: 'center'

@@ -1,5 +1,6 @@
 import React, { useState , useEffect} from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { ItemCalculadora } from '../components/ItemCalculadora';
 
 
 
@@ -12,13 +13,7 @@ export function Home() {
     const [parcial, setParcial] = useState('');//mostrar parcial
     const [isEquals, setEquals] = useState(false) 
 
-    useEffect(()=>{
-        console.log('ISEQUALS', isEquals)
-    }, [isEquals])
-
-    useEffect(()=>{
-        console.log('parcial', parcial)
-    }, [parcial])
+    
 
     // 1 + 2 + 5 * 2
     function addNumber(number) { // 1, 2, 5, 2 
@@ -142,14 +137,7 @@ export function Home() {
 
         <View style={styles.container}>
             <View style={styles.resultContainer}>
-                <View style={styles.resultText} >
-                    {isEquals &&(
-                        <Text style={styles.resultText}>{result}</Text>
-                    )}
-                    {!isEquals &&(
-                        <Text style={styles.resultText}>{parcial}</Text>
-                    )}
-                </View>     
+                <ItemCalculadora isEquals ={isEquals} result={result} parcial={parcial} />     
             </View>
             <TouchableOpacity style={styles.ButtonContainer} onPress={() => limpar()}>
                 <Text style={styles.ButtonText}>CE/C</Text>
@@ -378,10 +366,5 @@ const styles = StyleSheet.create({
         textAlign: 'center'
 
     },
-
-
-
-
-
 
 });
